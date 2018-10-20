@@ -37,14 +37,14 @@
 <body>
 <nav class="nav justify-content-center nav-tabs">
     <a class="nav-link" href="#">Home</a>
-    <a class="nav-link active" href="#">All Data</a>
+    <a class="nav-link" href="/">All Data</a>
     <div class="dropdown">
-        <a class="nav-link dropdown-toggle" href="#"
+        <a class="nav-link dropdown-toggle active" href="#"
        role="button" id="dropdownMenuLink" data-toggle="dropdown"
        aria-haspopup="true" aria-expanded="false">Data Sources</a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="/spacex">SpaceX (Unofficial)</a>
+            <a class="dropdown-item active" href="#">SpaceX (Unofficial)</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
         </div>
@@ -56,16 +56,16 @@
 <div class="container">
     <table width="100%">
     <tr>
-        <th>Spacecraft Name</th>
-        <th>Launch Start</th>
-        <th>Launch End</th>
+        <th>Mission Name</th>
+        <th>Launch Date and Time</th>
+        <th>Static Fire Date and Time</th>
     </tr>
 
     {% for launch in launches %}
     <tr>
-        <td>{{ launch.name }}</td>
-        <td>{{ launch.windowstart }}</td>
-        <td>{{ launch.windowend }}</td>
+        <td>{{ launch.mission_name }}</td>
+        <td>{{ launch.launch_date_utc }}</td>
+        <td>{{ launch.static_fire_date_utc }}</td>
     </tr>
     {% endfor %}
 </table>
@@ -76,16 +76,17 @@
 
 
 
-
+<!--
 <script>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {zoom: 2, center: {lat: 0, lng: 0}});
-        {% for launch in launches %}
-        var pussy{{ launch.id }} = {lat: {{ launch.location.pads[0].latitude }}, lng: {{ launch.location.pads[0].longitude }} };
-        var jiachengpussy{{ launch.id }} = new google.maps.Marker({position: pussy{{ launch.id }}, map: map});
-        {% endfor %}
+         {/% for launch in launches %}
+        var pussy{/{ launch.id }} = {lat: {/{ launch.location.pads[0].latitude }}, lng: {/{ launch.location.pads[0].longitude }} };
+        var jiachengpussy{/{ launch.id }} = new google.maps.Marker({position: pussy{/{ launch.id }}, map: map});
+        # {/% endfor %} #
     }
 </script>
+-->
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIb3C-scPINMFzYclua-IqENYvUCHMzZg&callback=initMap">
