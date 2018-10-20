@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rafael is gay</title>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+Hi my name is rafael and I'm gay
+
+<table>
+    <tr>
+        <th>Spacecraft Name</th>
+        <th>Launch Start</th>
+        <th>Launch end</th>
+    </tr>
+
+    {% for launch in launches %}
+    <tr>
+        <td>{{ launch.name }}</td>
+        <td>{{ launch.windowstart }}</td>
+        <td>{{ launch.windowend }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
