@@ -1,8 +1,9 @@
 <nav class="nav justify-content-center nav-tabs">
+
     <a class="nav-link" href="#">Home</a>
     <div class="dropdown">
 
-        {% if page == "index" %}
+        {% if page == "index" or page == "spacex_graphviz" %}
             <a class="nav-link dropdown-toggle active" href="#"
                role="button" id="dropdownMenuLink" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">Launch Data</a>
@@ -13,47 +14,27 @@
         {% endif %}
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {% if page == "index" %}
+            {% if page == "index"  %}
                 <a class="dropdown-item active" href="#">Upcoming Launches</a>
             {% else %}
                 <a class="dropdown-item" href="/">Upcoming Launches</a>
             {% endif %}
             <a class="dropdown-item" href="#">Previous Launches</a>
 
-        </div>
-    </div>
-
-    <a class="nav-link" href="">Flight Data</a>
-
-    <a class="nav-link" href="">Space Data</a>
-
-    <a class="nav-link" href="">Earth Data</a>
-
-
-
-
-
-    <div class="dropdown">
-        {% if "graphviz" in page %}
-            <a class="nav-link dropdown-toggle active" href="#"
-               role="button" id="dropdownMenuLink2" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">GraphViS&trade;</a>
-        {% else %}
-            <a class="nav-link dropdown-toggle" href="#"
-               role="button" id="dropdownMenuLink2" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">GraphViS&trade;</a>
-        {% endif %}
-
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             {% if page == "spacex_graphviz" %}
-                <a class="dropdown-item active" href="#">SpaceX</a>
+            <a class="dropdown-item active" href="#">GraphViS&trade;</a>
             {% else %}
-                <a class="dropdown-item" href="/graphviz/spacex">SpaceX</a>
+            <a class="dropdown-item" href="/graphviz/spacex">GraphViS&trade;</a>
             {% endif %}
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+
         </div>
     </div>
+
+    <a class="nav-link dropdown-toggle" href="">Flight Data</a>
+
+    <a class="nav-link dropdown-toggle" href="">Space Data</a>
+
+    <a class="nav-link dropdown-toggle" href="">Earth Data</a>
+
 
 </nav>

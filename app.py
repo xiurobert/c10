@@ -59,7 +59,12 @@ def spacex_viz():
     data = [
         go.Scatter(
             x=dataDF["Date"],
-            y=dataDF["Payload Mass (kg)"]
+            y=dataDF["Payload Mass (kg)"],
+            name="Payload Mass (KG)",
+            line=dict(
+                color = ('rgb(58, 19, 165)'),
+                width=3
+            )
         )
     ]
     layout = dict(title = 'Payload Mass/KG vs Launch Date',
@@ -68,6 +73,17 @@ def spacex_viz():
 
     results = plot(dict(data=data, layout=layout), output_type="div")
 
-    return render_template("spacex_graphviz.html", graph0=results)
+    pieDF = read_csv("static/spacex_launch_data.csv")["Launch Site"].value_counts()
+    pieKeys = []
+    pieValues = []
+
+    for key in pieDF.keys():
+        pieKeys.append(key)
+        pieValues.append(pieDF[key])
+    results1 = plot(dict(
+        data=[go.Pie(labels=pieKeys, values=pieValues)],
+        layout=dict(title="SpaceX launch pad count")), output_type="div")
+
+    return render_template("spacex_graphviz.html", graph0=results, graph1=results1)
 
 

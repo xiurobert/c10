@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jia cheng is gay</title>
+    <title>Launch Data > SpaceX | GraphViS&trade; by InfiniaSource</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -25,25 +25,54 @@
             border-collapse: collapse;
         }
 
-        #map {
-            height: 30em;  /* The height is 400 pixels */
-            width: 100%;  /* The width is the width of the web page */
+        h3 {
+            margin-top: 1.5%;
         }
 
+        #loading {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 0.9;
+            z-index: 99;
+            text-align: center;
+            background-color: #444444;
+            color: white;
+        }
+
+        #loading-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 15%;
+            margin-bottom: auto;
+            z-index: 100;
+        }
 
     </style>
 </head>
 
 <body>
 
-<h1>Cloud10 Data</h1>
+<img src="/static/logo.png" width="10%" height="10%">
+<div id="loading">
+    <img id="loading-image" src="/static/graphvis.png" >
+
+    <h1>Loading GraphViS&trade;</h1>
+</div>
 
 <div class="container">
     {% set page = "spacex_graphviz" %}
     {% include "navbar.html" %}
+    <img src="/static/graphvis.png" width="25%" height="25%">
     <h3>GraphViS&trade; for SpaceX launch data</h3>
 
     {{ graph0|safe }}
+    <br>
+    {{ graph1|safe }}
 </div>
 
 
@@ -62,6 +91,17 @@
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIb3C-scPINMFzYclua-IqENYvUCHMzZg&callback=initMap">
+</script>
+
+<script>
+    $(".js-link-to-tool").hide();
+    $.ready(function() {
+        $(".js-link-to-tool").hide();
+    });
+
+    $(document).ready(function() {
+        $('#loading').hide();
+    });
 </script>
 
 </body>
