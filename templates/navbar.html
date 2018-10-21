@@ -1,0 +1,57 @@
+<nav class="nav justify-content-center nav-tabs">
+    <a class="nav-link" href="#">Home</a>
+    {% if page == "index" %}
+        <a class="nav-link active" href="#">Upcoming Rocket Launches</a>
+    {% else %}
+        <a class="nav-link" href="/">Upcoming Rocket Launches</a>
+    {% endif %}
+
+
+    <div class="dropdown">
+
+        {% if "rocketlaunch" in page %}
+            <a class="nav-link dropdown-toggle active" href="#"
+               role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">Previous and Upcoming Rocket Launches</a>
+        {% else %}
+            <a class="nav-link dropdown-toggle" href="#"
+               role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">Previous and Upcoming Rocket Launches</a>
+        {% endif %}
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {% if page == "spacex_rocketlaunch" %}
+                <a class="dropdown-item active" href="#">SpaceX (Unofficial)</a>
+            {% else %}
+                <a class="dropdown-item" href="/spacex">SpaceX (Unofficial)</a>
+            {% endif %}
+            <a class="dropdown-item" href="#">NASA</a>
+            <a class="dropdown-item" href="#">ESA</a>
+        </div>
+    </div>
+
+
+    <div class="dropdown">
+        {% if "graphviz" in page %}
+            <a class="nav-link dropdown-toggle active" href="#"
+               role="button" id="dropdownMenuLink2" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">GraphViS&trade;</a>
+        {% else %}
+            <a class="nav-link dropdown-toggle" href="#"
+               role="button" id="dropdownMenuLink2" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">GraphViS&trade;</a>
+        {% endif %}
+
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {% if page == "spacex_graphviz" %}
+                <a class="dropdown-item active" href="#">SpaceX</a>
+            {% else %}
+                <a class="dropdown-item" href="/graphviz/spacex">SpaceX</a>
+            {% endif %}
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+
+</nav>

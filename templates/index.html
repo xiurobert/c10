@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jia cheng is gay</title>
+    <title>Cloud10 | Upcoming Rocket Launches</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -26,70 +26,126 @@
         }
 
         #map {
-        height: 30em;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+            width: inherit;
+            height: 20em;
+        }
+
 
 
     </style>
+
+    <!-- Mapbox -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body>
-<nav class="nav justify-content-center nav-tabs">
-    <a class="nav-link" href="#">Home</a>
-    <a class="nav-link active" href="#">All Data</a>
-    <div class="dropdown">
-        <a class="nav-link dropdown-toggle" href="#"
-       role="button" id="dropdownMenuLink" data-toggle="dropdown"
-       aria-haspopup="true" aria-expanded="false">Data Sources</a>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="/spacex">SpaceX (Unofficial)</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    </div>
-
-</nav>
-<h1>Our Logo Goes Here</h1>
+<h1>Cloud10 Data</h1>
 
 <div class="container">
+    {% set page = "index" %}
+    {% include "navbar.html" %}
     <table width="100%">
-    <tr>
-        <th>Spacecraft Name</th>
-        <th>Launch Start</th>
-        <th>Launch End</th>
-    </tr>
+        <tr>
+            <th>Spacecraft Name</th>
+            <th>Launch Start</th>
+            <th>Launch End</th>
+        </tr>
 
-    {% for launch in launches %}
-    <tr>
-        <td>{{ launch.name }}</td>
-        <td>{{ launch.windowstart }}</td>
-        <td>{{ launch.windowend }}</td>
-    </tr>
-    {% endfor %}
-</table>
+        {% for launch in launches %}
+            <tr>
+                <td>{{ launch.name }}</td>
+                <td>{{ launch.windowstart }}</td>
+                <td>{{ launch.windowend }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
-<h3>Launch sites</h3>
-<div id="map" style="display: inline-block"></div>
+    <h3>Launch sites</h3>
+    <div id='map'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoieGl1cm9iZXJ0IiwiYSI6ImNqN2VzMThmajByYWYyem80d3dtcG51aDMifQ.6030N97DDmcInpn-4SqreQ';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [-71.052069, 42.363484],
+            zoom: 1.0
+        });
+
+        if (map.areTilesLoaded() === true) {
+            $(".mapboxgl-canvas").css("position", "relative");
+        }
+
+        map.on("load", function () {
+            /* Image: An image is loaded and added to the map. */
+            map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+                if (error) throw error;
+                map.addImage("custom-marker", image);
+                /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+                map.addLayer({
+                    id: "markers",
+                    type: "symbol",
+                    /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+                    source: {
+                        type: "geojson",
+                        data:
+                            {
+                                type: "FeatureCollection",
+                                features:[
+                                    {% for pad in padinfo %}
+                                        {
+                                            "type":"Feature",
+                                            "properties": {
+                                                "description": "Weather: {{ pad.weather_general }}<br>" +
+                                                "Temperature: {{ pad.temp }}<br>" +
+                                                "Humidity: {{ pad.humidity }}%<br>" +
+                                                "Wind Speed: {{ pad.windspeed }}km/h<br>" +
+                                                "Cloud cover: {{ pad.cloudpercent }}%",
+                                            },
+
+                                            "geometry":{
+                                                "type":"Point",
+                                                "coordinates":["{{ pad.lat }}","{{ pad.lon }}"]
+                                            }
+                                        },
+                                    {% endfor %}
+                                ]
+                            }
+
+
+                    },
+                    layout: {
+                        "icon-image": "custom-marker",
+                    }
+                });
+            });
+            map.on('click', 'markers', function (e) {
+                var coordinates = e.features[0].geometry.coordinates.slice();
+                var description = e.features[0].properties.description;
+
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(description)
+                    .addTo(map);
+            });
+        })
+    </script>
+
+    <h3>Best viewing locations for Launch</h3>
+    <b>Coming soon!</b>
 </div>
 
 
 
-
-<script>
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {zoom: 2, center: {lat: 0, lng: 0}});
-        {% for launch in launches %}
-        var pussy{{ launch.id }} = {lat: {{ launch.location.pads[0].latitude }}, lng: {{ launch.location.pads[0].longitude }} };
-        var jiachengpussy{{ launch.id }} = new google.maps.Marker({position: pussy{{ launch.id }}, map: map});
-        {% endfor %}
-    }
-</script>
-
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIb3C-scPINMFzYclua-IqENYvUCHMzZg&callback=initMap">
-</script>
 
 </body>
 </html>
