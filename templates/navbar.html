@@ -1,10 +1,27 @@
 <nav class="nav justify-content-center nav-tabs">
     <a class="nav-link" href="#">Home</a>
-    {% if page == "index" %}
-        <a class="nav-link active" href="#">Launch Data</a>
-    {% else %}
-        <a class="nav-link" href="/">Launch Data</a>
-    {% endif %}
+    <div class="dropdown">
+
+        {% if page == "index" %}
+            <a class="nav-link dropdown-toggle active" href="#"
+               role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">Launch Data</a>
+        {% else %}
+            <a class="nav-link dropdown-toggle" href="#"
+               role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">Launch Data</a>
+        {% endif %}
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {% if page == "index" %}
+                <a class="dropdown-item active" href="#">Upcoming Launches</a>
+            {% else %}
+                <a class="dropdown-item" href="/">Upcoming Launches</a>
+            {% endif %}
+            <a class="dropdown-item" href="#">Previous Launches</a>
+
+        </div>
+    </div>
 
     <a class="nav-link" href="">Flight Data</a>
 
@@ -13,28 +30,7 @@
     <a class="nav-link" href="">Earth Data</a>
 
 
-    <div class="dropdown">
 
-        {% if "rocketlaunch" in page %}
-            <a class="nav-link dropdown-toggle active" href="#"
-               role="button" id="dropdownMenuLink" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">Previous and Upcoming Rocket Launches</a>
-        {% else %}
-            <a class="nav-link dropdown-toggle" href="#"
-               role="button" id="dropdownMenuLink" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">Previous and Upcoming Rocket Launches</a>
-        {% endif %}
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {% if page == "spacex_rocketlaunch" %}
-                <a class="dropdown-item active" href="#">SpaceX (Unofficial)</a>
-            {% else %}
-                <a class="dropdown-item" href="/spacex">SpaceX (Unofficial)</a>
-            {% endif %}
-            <a class="dropdown-item" href="#">NASA</a>
-            <a class="dropdown-item" href="#">ESA</a>
-        </div>
-    </div>
 
 
     <div class="dropdown">

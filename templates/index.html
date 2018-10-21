@@ -19,7 +19,7 @@
         body {
             font-family: "Product Sans";
             text-align: center;
-            background-image: url("static/web_background.png");
+            /*background-image: url("static/web_background.png");*/
         }
         table, th, td {
             border: 1px solid black;
@@ -29,6 +29,10 @@
         #map {
             width: inherit;
             height: 40em;
+        }
+
+        h2 {
+            margin-top: 1.5%;
         }
 
     </style>
@@ -46,6 +50,8 @@
 <div class="container">
     {% set page = "index" %}
     {% include "navbar.html" %}
+
+    <h2>Upcoming launches</h2>
     <table width="100%">
         <tr>
             <th>Spacecraft Name</th>
@@ -64,6 +70,11 @@
 
     <h3>Launch sites</h3>
     <div id='map'></div>
+    <h3>Best viewing locations for Launch</h3>
+    <b>Coming soon!</b>
+
+
+
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoieGl1cm9iZXJ0IiwiYSI6ImNqN2VzMThmajByYWYyem80d3dtcG51aDMifQ.6030N97DDmcInpn-4SqreQ';
         var map = new mapboxgl.Map({
@@ -139,8 +150,7 @@
         })
     </script>
 
-    <h3>Best viewing locations for Launch</h3>
-    <b>Coming soon!</b>
+
 </div>
 
 
