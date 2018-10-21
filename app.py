@@ -55,7 +55,7 @@ def spacex_viz():
     # Plot Code
 
     # Generate DF and cut off other columns
-    dataDF = read_csv("spacex_launch_data.csv")[["Date", "Payload Mass (kg)"]].copy()
+    dataDF = read_csv("static/spacex_launch_data.csv")[["Date", "Payload Mass (kg)"]].copy()
     data = [
         go.Scatter(
             x=dataDF["Date"],

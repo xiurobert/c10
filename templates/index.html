@@ -19,6 +19,7 @@
         body {
             font-family: "Product Sans";
             text-align: center;
+            background-image: url("static/web_background.png");
         }
         table, th, td {
             border: 1px solid black;
@@ -27,10 +28,8 @@
 
         #map {
             width: inherit;
-            height: 20em;
+            height: 40em;
         }
-
-
 
     </style>
 
@@ -80,7 +79,7 @@
 
         map.on("load", function () {
             /* Image: An image is loaded and added to the map. */
-            map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+            map.loadImage("/static/marker.png", function(error, image) {
                 if (error) throw error;
                 map.addImage("custom-marker", image);
                 /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
