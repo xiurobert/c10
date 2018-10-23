@@ -1,10 +1,9 @@
 #!/bin/env/python
 
 from flask import Flask, render_template
-import json
 import requests
 
-from pandas import DataFrame, read_csv
+from pandas import read_csv
 from plotly.offline import plot
 import plotly.graph_objs as go
 
@@ -30,16 +29,12 @@ def index():
         paddict["weather_general"] = openweathermap["weather"][0]["main"]
         paddict["temp"] = str(round(int(openweathermap["main"]["temp"]) - 273.15, 2))
         paddict["humidity"] = openweathermap["main"]["humidity"]
-        #paddict["visibility"] = openweathermap["visibility"]
         paddict["windspeed"] = openweathermap["wind"]["speed"]
-        #paddict["winddirection"] = openweathermap["wind"]["deg"]
         paddict["cloudpercent"] = openweathermap["clouds"]["all"]
-        #paddict["rainvol"] = openweathermap["rain"]["3h"]
-        #paddict["snowvol"] = openweathermap["snow"]["3h"]
 
         paddata.append(paddict)
 
-    #print(paddata)
+
     return render_template("index.html", launches=returnedjson["launches"], padinfo=paddata)
 
 
